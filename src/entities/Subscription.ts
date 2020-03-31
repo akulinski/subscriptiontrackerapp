@@ -1,3 +1,5 @@
+import moment from "moment";
+
 interface ISubscription {
 
     id: number,
@@ -12,8 +14,6 @@ interface ISubscription {
 }
 
 class Subscription implements ISubscription {
-
-    private static MS_PER_DAY = 1000 * 60 * 60 * 24;
 
     dueDate: string | undefined;
 
@@ -30,8 +30,7 @@ class Subscription implements ISubscription {
         this.id = id;
         this.price = price;
         this.siteName = siteName;
-        const diffTime = Math.abs(new Date(dueDate ? dueDate : '').getDate() - new Date().getDate());
-        this.daysLeft = Math.ceil(diffTime / Subscription.MS_PER_DAY);
+        this.daysLeft =  moment(dueDate, 'DD-MM-YYYY').diff(moment(), 'days')
     }
 }
 

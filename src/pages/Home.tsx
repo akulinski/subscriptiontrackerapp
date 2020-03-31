@@ -7,25 +7,16 @@ import NewSubscription from "../components/NewSubscription/NewSubscription";
 import Subscription from "../entities/Subscription";
 import SubscriptionCard from "../components/Subscription/SubscriptionCard";
 import moment from "moment";
+import subscriptionComperator from "../utils/subscriptionComperator";
 
 const subscriptions: Subscription[] = [
-    new Subscription(new Date(moment('17-06-2000', 'DD-MM-YYYY').date()).toLocaleDateString(), 1, 9.99, "www.google.pl"),
-    new Subscription(new Date().toLocaleDateString(), 2, 9.99, "www.google.pl"),
-    new Subscription(new Date().toLocaleDateString(), 3, 9.99, "www.google.pl")
+    new Subscription(moment("17-06-1995", 'DD-MM-YYYY').format('DD-MM-YYYY'), 1, 9.99, "www.google.pl"),
+    new Subscription(moment().format('DD-MM-YYYY'), 2, 9.99, "www.google.pl"),
+    new Subscription(moment().format('DD-MM-YYYY'), 3, 9.99, "www.google.pl")
 ];
 
 const Home: React.FC = () => {
     const [dialogVisible, setDialogVisible] = useState(false);
-
-    const compare = (a: Subscription, b: Subscription) => {
-        if (a.daysLeft > b.daysLeft) {
-            return -1;
-        } else if (a.daysLeft < b.daysLeft) {
-            return 1;
-        }
-        return 0;
-    };
-
 
     return (
         <IonPage>
@@ -43,7 +34,7 @@ const Home: React.FC = () => {
 
                 <Container className={'subscription-list'}>
                     {
-                        subscriptions.sort(compare).map((sub) => <SubscriptionCard
+                        subscriptions.sort(subscriptionComperator).map((sub) => <SubscriptionCard
                             subscription={sub} key={sub.id}/>)
                     }
                 </Container>
