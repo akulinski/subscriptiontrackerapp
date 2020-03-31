@@ -1,3 +1,13 @@
 ion-content ion-toolbar {
-  --background: translucent;
+    --background: translucent;
+}
+
+.subscription-list {
+  margin-top: 50px;
+}
+
+.floating-add{
+    position: absolute;
+    bottom: 0;
+    right: -80%;
 }
