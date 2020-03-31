@@ -1,33 +1,31 @@
 import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import React, {useState} from 'react';
 import './Home.css';
-import ISubscription from "../entities/Subscription";
 import {Container, Fab} from '@material-ui/core';
-import Subscription from '../components/Subscription/Subscription';
 import AddIcon from '@material-ui/icons/Add';
 import NewSubscription from "../components/NewSubscription/NewSubscription";
+import Subscription from "../entities/Subscription";
+import SubscriptionCard from "../components/Subscription/SubscriptionCard";
+import moment from "moment";
 
-const subscriptions: ISubscription[] = [
-    {
-        id: 1,
-        dueDate: new Date().toLocaleDateString(),
-        siteName: "www.google.pl",
-        price: 9.99
-    }, {
-        id: 2,
-        dueDate: new Date().toLocaleDateString(),
-        siteName: "www.google.pl",
-        price: 9.99
-    }, {
-        id: 3,
-        dueDate: new Date().toLocaleDateString(),
-        siteName: "www.google.pl",
-        price: 9.99
-    }
+const subscriptions: Subscription[] = [
+    new Subscription(new Date(moment('17-06-2000', 'DD-MM-YYYY').date()).toLocaleDateString(), 1, 9.99, "www.google.pl"),
+    new Subscription(new Date().toLocaleDateString(), 2, 9.99, "www.google.pl"),
+    new Subscription(new Date().toLocaleDateString(), 3, 9.99, "www.google.pl")
 ];
 
 const Home: React.FC = () => {
     const [dialogVisible, setDialogVisible] = useState(false);
+
+    const compare = (a: Subscription, b: Subscription) => {
+        if (a.daysLeft > b.daysLeft) {
+            return -1;
+        } else if (a.daysLeft < b.daysLeft) {
+            return 1;
+        }
+        return 0;
+    };
+
 
     return (
         <IonPage>
@@ -45,7 +43,8 @@ const Home: React.FC = () => {
 
                 <Container className={'subscription-list'}>
                     {
-                        subscriptions.map((sub) => <Subscription subscription={sub} key={sub.id}/>)
+                        subscriptions.sort(compare).map((sub) => <SubscriptionCard
+                            subscription={sub} key={sub.id}/>)
                     }
                 </Container>
                 <NewSubscription isOpen={dialogVisible} handleClose={() => setDialogVisible(false)}

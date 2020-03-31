@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 
-const Subscription: React.FC<Props> = ({subscription}) => {
+const SubscriptionCard: React.FC<Props> = ({subscription}) => {
 
     const classes = useStyles();
 
@@ -45,9 +45,13 @@ const Subscription: React.FC<Props> = ({subscription}) => {
                 <Typography variant="body2" component="p">
                     {subscription.price}
                 </Typography>
+                <Typography variant="body2" component="p">
+                    Days Left: {subscription.daysLeft}
+                </Typography>
+
             </CardContent>
         </Card>
     );
 };
 
-export default Subscription;
+export default SubscriptionCard;
