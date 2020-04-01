@@ -3,11 +3,5 @@ ion-content ion-toolbar {
 }
 
 .subscription-list {
-  margin-top: 50px;
-}
-
-.floating-add{
-    position: absolute;
-    bottom: 0;
-    right: -80%;
+    margin-top: 50px;
 }

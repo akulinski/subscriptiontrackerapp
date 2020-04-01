@@ -22,7 +22,7 @@ const NewSubscription: React.FC<Props> = ({isOpen, handleClose, addNewSubscripti
 
     const addNewSubscriptionWrapper = () => {
         handleClose();
-        addNewSubscription(new Subscription(selectedDate?.toLocaleDateString(), 1, price, website));
+        addNewSubscription(new Subscription(selectedDate?.toLocaleDateString(), 1, price, website, 1));
     };
 
     return (

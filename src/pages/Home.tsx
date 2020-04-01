@@ -8,17 +8,40 @@ import Subscription from "../entities/Subscription";
 import SubscriptionCard from "../components/Subscription/SubscriptionCard";
 import moment from "moment";
 import subscriptionComperator from "../utils/subscriptionComperator";
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 const subscriptions: Subscription[] = [
-    new Subscription(moment("17-06-1995", 'DD-MM-YYYY').format('DD-MM-YYYY'), 1, 9.99, "www.google.pl"),
-    new Subscription(moment().format('DD-MM-YYYY'), 2, 9.99, "www.google.pl"),
-    new Subscription(moment().format('DD-MM-YYYY'), 3, 9.99, "www.google.pl")
+    new Subscription(moment("17-06-1995", 'DD-MM-YYYY').format('DD-MM-YYYY'), 1, 9.99, "www.google.pl", 30),
+    new Subscription(moment().format('DD-MM-YYYY'), 2, 9.99, "www.google.pl", 30),
+    new Subscription(moment().format('DD-MM-YYYY'), 3, 9.99, "www.google.pl", 30)
 ];
 
 const Home: React.FC = () => {
+
     const [dialogVisible, setDialogVisible] = useState(false);
 
+    const useStyles = makeStyles((theme: Theme) =>
+        createStyles({
+            fab: {
+                position: 'absolute',
+                bottom: theme.spacing(2),
+                right: theme.spacing(2),
+            },
+        }),
+    );
+
+    const classes = useStyles();
+
+    const fab = {
+        color: 'primary' as 'primary',
+        className: classes.fab,
+        icon: <AddIcon/>,
+        label: 'Add',
+    };
+
+
     return (
+
         <IonPage>
             <IonHeader>
                 <IonToolbar>
@@ -40,7 +63,7 @@ const Home: React.FC = () => {
                 </Container>
                 <NewSubscription isOpen={dialogVisible} handleClose={() => setDialogVisible(false)}
                                  addNewSubscription={subscription => subscriptions.push(subscription)}/>
-                <Fab color="primary" aria-label="add" className="floating-add" onClick={() => setDialogVisible(true)}>
+                <Fab color="primary" aria-label="add" className={fab.className} onClick={() => setDialogVisible(true)}>
                     <AddIcon/>
                 </Fab>
             </IonContent>

@@ -10,10 +10,13 @@ interface ISubscription {
 
     price: number,
 
+    period: number,
+
     daysLeft: number;
 }
 
 class Subscription implements ISubscription {
+    period: number;
 
     dueDate: string | undefined;
 
@@ -25,12 +28,13 @@ class Subscription implements ISubscription {
 
     daysLeft: number;
 
-    constructor(dueDate: string | undefined, id: number, price: number, siteName: string) {
+    constructor(dueDate: string | undefined, id: number, price: number, siteName: string, period: number) {
         this.dueDate = dueDate;
         this.id = id;
         this.price = price;
         this.siteName = siteName;
-        this.daysLeft =  moment(dueDate, 'DD-MM-YYYY').diff(moment(), 'days')
+        this.daysLeft = moment(dueDate, 'DD-MM-YYYY').diff(moment(), 'days');
+        this.period = period;
     }
 }
 
